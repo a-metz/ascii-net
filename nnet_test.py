@@ -53,7 +53,7 @@ def run_tests():
 
 	for input_, expected_output in zip(input_data, expected_output_data):
 		output = test_net_xor.evaluate(input_)
-		print 'evaluate with input:', input_, 'output:', output
+		print 'evaluate with input:', input_, 'expected output:', expected_output, 'output:', output
 
 if __name__ == "__main__":
 	run_tests()
