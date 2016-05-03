@@ -7,6 +7,7 @@ import numpy as np
 # z = sum_i(x_i * w_i)
 # y = nonlin(z) = output of current layer
 
+
 class Layer:
 	# n number of neurons
 	# i number of inputs
@@ -39,6 +40,7 @@ class Layer:
 		self.w += np.multiply(l, dE_w)
 
 		return dE_x
+
 
 # nonlinear function, y(z)
 def nonlin(z):
