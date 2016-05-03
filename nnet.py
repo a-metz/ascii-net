@@ -12,17 +12,17 @@ class Layer:
 	# n number of neurons
 	# i number of inputs
 	# self.w weight matrix
-	def __init__(self, n, i):
+	def __init__(self, num_neurons, num_inputs, weight_transform=lambda w: w):
 		# initialize random weight matrix
-		self.w = (2 * np.random.random((n, i))) - 1
+		self.w = (2 * np.random.random((num_neurons, num_inputs))) - 1
+		self.numpy_weight_transform = np.vectorize(weight_transform)
 
 	# self.x input vector
 	# self.y output vector
-	def feed_forward(self, x, binary=False):
-		self.x = x
-		w = self.w
-		if binary:
-			np.vectorize(lambda w: -1 if w < 0 else 1)(w)
+	def feed_forward(self, input_):
+		self.x = input_
+		# transform weights
+		w = self.numpy_weight_transform(self.w)
 		# multiply weights with output of previous layer
 		z = np.dot(w, self.x)
 		# transform with nonlinar function
@@ -32,15 +32,18 @@ class Layer:
 
 	# self.dE_y error derivative vector
 	# l learning rate
-	def back_propagate(self, dE_y, l=1):
+	def back_propagate(self, error, learning_rate=1):
+		dE_y = error
 		# error derivative vector with regard to sum of weighted inputs z
 		dE_z = np.multiply(nonlin_deriv(self.y), dE_y)
+		# transform weights
+		w = self.numpy_weight_transform(self.w)
 		# error derivate vector multiplied by weights for previous layer
-		dE_x = np.dot(self.w.T, dE_z)
+		dE_x = np.dot(w.T, dE_z)
 		# error derivative with regard to weight matrix, for correction of weight matix
 		dE_w = np.multiply(self.x, np.matrix(dE_z).T)
-		# correct weights by learning rate
-		self.w += np.multiply(l, dE_w)
+		# correct original weights by learning rate
+		self.w += np.multiply(learning_rate, dE_w)
 
 		return dE_x
 
