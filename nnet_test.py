@@ -5,7 +5,7 @@ import nnet
 class TestNetXOR:
 	def __init__(self):
 		num_inputs = 2
-		num_hidden = 2
+		num_hidden = 3
 		num_outputs = 1
 
 		# initialize layers with bias inputs
@@ -23,13 +23,15 @@ class TestNetXOR:
 	def evaluate(self, input_):
 		# append bias to input vector
 		input_ = np.append(input_, 1)
-		hidden = self.hidden_layer.feed_forward(input_)
+		hidden = self.hidden_layer.feed_forward(input_, binary=True)
 		# append bias to hidden vector
 		hidden = np.append(hidden, 1)
-		output = self.output_layer.feed_forward(hidden)
+		output = self.output_layer.feed_forward(hidden, binary=True)
 		return output
 
 def run_tests():
+	np.random.seed(0)
+
 	input_data = np.asarray([
 		[0, 0],
 		[0, 1],
@@ -48,7 +50,7 @@ def run_tests():
 		error_sum = 0
 		for input_, expected_output in zip(input_data, expected_output_data):
 			error_sum += test_net_xor.train(input_, expected_output)
-		if n % 100 == 0:
+		if n % 1000 == 0:
 			print 'training error sum:', error_sum
 
 	for input_, expected_output in zip(input_data, expected_output_data):

@@ -18,10 +18,13 @@ class Layer:
 
 	# self.x input vector
 	# self.y output vector
-	def feed_forward(self, x):
+	def feed_forward(self, x, binary=False):
 		self.x = x
+		w = self.w
+		if binary:
+			np.vectorize(lambda w: -1 if w < 0 else 1)(w)
 		# multiply weights with output of previous layer
-		z = np.dot(self.w, self.x)
+		z = np.dot(w, self.x)
 		# transform with nonlinar function
 		self.y = nonlin(z)
 
