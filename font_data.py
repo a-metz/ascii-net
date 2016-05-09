@@ -37,6 +37,6 @@ def generate_image(char, font, dim):
 def generate_default_glyphs():
 	return GlyphList(	
 		charset='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;?@[\\]^_`{|}~ ',
-		fontname='DejaVuSansMono.ttf',
+		fontname='fonts/DejaVuSansMono.ttf',
 		fontsize=18,
 		dim=(11, 23))
