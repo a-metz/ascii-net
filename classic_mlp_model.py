@@ -3,18 +3,15 @@ import numpy as np
 import nnet
 
 
-class BooleanOperatorModel(object):
-    def __init__(self):
-        self.num_inputs = 2
-        self.num_hidden = 3
-        self.num_outputs = 1
+class ClassicMLPModel(object):
+    def __init__(self, num_inputs, num_hidden, num_outputs):
 
-        # initialize layers with bias inputs and weight transform
-        self.hidden_layer = nnet.Layer(num_neurons=self.num_hidden,
-                                       num_inputs=self.num_inputs + 1)
+        # initialize layers with bias inputs
+        self.hidden_layer = nnet.Layer(num_neurons=num_hidden,
+                                       num_inputs=num_inputs + 1)
 
-        self.output_layer = nnet.Layer(num_neurons=self.num_outputs,
-                                       num_inputs=self.num_hidden + 1)
+        self.output_layer = nnet.Layer(num_neurons=num_outputs,
+                                       num_inputs=num_hidden + 1)
 
     def evaluate(self, input_):
         # append bias to input vector
@@ -44,6 +41,11 @@ class BooleanOperatorModel(object):
         # get weight errors by evaluation and back propagation
         output_weight_error, hidden_weight_error = self.get_weight_errors(
             input_, expected_output)
+
+        self.output_layer.correct_weights(acc_output_weight_error,
+                                          learning_rate=learning_rate)
+        self.hidden_layer.correct_weights(acc_hidden_weight_error,
+                                          learning_rate=learning_rate)
 
         # return training error
         return np.mean(np.abs(expected_output - self.evaluate(input_)))
