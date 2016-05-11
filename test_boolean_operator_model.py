@@ -1,10 +1,9 @@
 import numpy as np
 
-import nnet
 import boolean_operator_model
 
 
-def test_boolean_operator_model():
+def test_xor():
     eval_errors = 0
     for seed in range(20):
         print 'random seed:', seed
@@ -32,7 +31,8 @@ def test_boolean_operator_model():
         print
 
     print 'eval_errors:', eval_errors
+    assert eval_errors == 0
 
 
 if __name__ == "__main__":
-    test_boolean_operator_model()
+    test_xor()
