@@ -16,22 +16,24 @@ class ClassicMLPModel(object):
     def evaluate(self, input_):
         # append bias to input vector
         input_ = np.append(input_, 1)
-        hidden = self.hidden_layer.feed_forward(input_)
+        hidden = self.hidden_layer.feed_forward(input_,
+                                                activation=nnet.logistic)
         # append bias to hidden vector
         hidden = np.append(hidden, 1)
-        output = self.output_layer.feed_forward(hidden)
+        output = self.output_layer.feed_forward(hidden,
+                                                activation=nnet.logistic)
         return output
 
     def get_weight_errors(self, input_, expected_output):
-        output_error = expected_output - self.evaluate(input_)
+        output_error = nnet.se_cost(expected_output, self.evaluate(input_))
         # backpropagate output layer
         hidden_error, output_weight_error = self.output_layer.back_propagate(
-            output_error)
+            output_error, activation_deriv=nnet.logistic_deriv)
         # remove bias error from hidden_error vector
         hidden_error = hidden_error[:-1]
         # backpropagate hidden layer
         input_error, hidden_weight_error = self.hidden_layer.back_propagate(
-            hidden_error)
+            hidden_error, activation_deriv=nnet.logistic_deriv)
         # remove bias error from input_error vector
         #input_error = input_error[:-1]
 
