@@ -24,8 +24,7 @@ def test_xor(runs=1):
 
         for input_, expected_output in zip(inputs, expected_outputs):
             output = model_xor.evaluate(input_)
-            eval_errors += np.abs(expected_output - np.vectorize(
-                lambda o: 0 if o < 0.5 else 1)(output))
+            eval_errors += np.abs(expected_output - np.around(output))
             print 'eval input:', input_, 'expected output:', expected_output, 'output:', output
 
         print
@@ -64,8 +63,7 @@ def test_random_binary(runs=1):
 
         for input_, expected_output in zip(inputs, expected_outputs):
             output = model_random_binary.evaluate(input_)
-            eval_errors += np.abs(expected_output - np.vectorize(
-                lambda o: 0 if o < 0.5 else 1)(output))
+            eval_errors += np.abs(expected_output - np.around(output))
             print 'eval input:', input_, 'expected output:', expected_output, 'output:', output
 
         print
