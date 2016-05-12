@@ -42,12 +42,12 @@ class Layer(object):
 
     def correct_weights(self, weight_error, learning_rate):
         # correct weights by weight error and learning rate
-        self.w += np.multiply(learning_rate * self.weight_factor, weight_error)
+        self.w -= np.multiply(learning_rate * self.weight_factor, weight_error)
 
 
 # squared error cost gradient
-def se_cost(t, y):
-    return t - y
+def error(t, y):
+    return y - t
 
 
 # logistic activation
@@ -59,14 +59,12 @@ def logistic(z):
 def logistic_deriv(y):
     return np.multiply(y, 1 - y)
 
-# # cross entropy cost gradient
-# def ce_cost(t, y):
-#     return -1 * np.sum(np.multiply(t, np.log(y)))
 
-# # softmax activation
-# def softmax(z):
-#     return np.exp(z) / np.sum(np.exp(z))
+# softmax activation
+def softmax(z):
+    return np.exp(z) / np.sum(np.exp(z))
 
-# # softmax derivative
-# def softmax_deriv(y):
-#     return np.multiply(y, 1 - y)
+
+# cross entropy softmax derivative
+def ce_softmax_deriv(y):
+    return 1

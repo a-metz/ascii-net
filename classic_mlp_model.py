@@ -25,7 +25,7 @@ class ClassicMLPModel(object):
         return output
 
     def get_weight_errors(self, input_, expected_output):
-        output_error = nnet.se_cost(expected_output, self.evaluate(input_))
+        output_error = nnet.error(expected_output, self.evaluate(input_))
         # backpropagate output layer
         hidden_error, output_weight_error = self.output_layer.back_propagate(
             output_error, activation_deriv=nnet.logistic_deriv)
