@@ -21,6 +21,6 @@ def default_glyphs():
     return glyphs(
         charset=
         '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;?@[\\]^_`{|}~ ',
-        fontname='fonts/DejaVuSansMono.ttf',
-        fontsize=18,
-        dim=(11, 23))
+        fontname='DejaVuSansMono.ttf',
+        fontsize=15,
+        dim=(9, 18))

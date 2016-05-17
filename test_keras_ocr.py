@@ -31,13 +31,13 @@ def test_generate():
     g = list(glyphs.default_glyphs())
     inputs, labels, chars = font_data.convert(g)
 
+    imgs = list(image.read('input_image/test_image_w.png', 9, 18))
+    test_inputs = image_data.convert(imgs)
+
     m = ocr.Model(len(inputs[0]), len(labels[0]))
 
-    # train for 500 epochs
-    m.train(inputs, labels, 2000)
-
-    imgs = list(image.read('input_image/test_image_w.png', 11, 23))
-    test_inputs = image_data.convert(imgs)
+    # train for 100 epochs
+    m.train(inputs, labels, 1000)
 
     # predict class for test_inputs
     p_classes = m.predict(test_inputs)
