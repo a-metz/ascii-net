@@ -12,15 +12,18 @@ class Model(object):
         self.model.add(Dense(output_dim=num_classes))
         self.model.add(Activation('softmax'))
 
-        self.model.compile(loss='categorical_crossentropy',
-                           optimizer=SGD(lr=1))
+        self.model.compile(
+            loss='categorical_crossentropy',
+            optimizer=SGD(lr=1, decay=1e-6,
+                          momentum=0.9,
+                          nesterov=True))
 
     def train(self, inputs, labels, epochs):
         self.model.fit(inputs,
                        labels,
-                       batch_size=32,
+                       batch_size=92,
                        nb_epoch=epochs,
-                       verbose=0)
+                       verbose=1)
 
     def predict(self, inputs):
         return self.model.predict_classes(inputs, verbose=0)

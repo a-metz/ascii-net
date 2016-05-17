@@ -34,7 +34,7 @@ def test_generate():
     m = ocr.Model(len(inputs[0]), len(labels[0]))
 
     # train for 500 epochs
-    m.train(inputs, labels, 500)
+    m.train(inputs, labels, 2000)
 
     imgs = list(image.read('input_image/test_image_w.png', 11, 23))
     test_inputs = image_data.convert(imgs)
@@ -43,8 +43,8 @@ def test_generate():
     p_classes = m.predict(test_inputs)
 
     p_chars = font_data.deconvert(chars, p_classes)
-    for i in range(0, len(p_chars), 40):
-        print(''.join(p_chars[i:i + 40]))
+    for i in range(0, len(p_chars), 80):
+        print(''.join(p_chars[i:i + 80]))
 
 
 if __name__ == "__main__":
