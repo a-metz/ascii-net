@@ -4,7 +4,9 @@ from PIL import Image, ImageDraw, ImageFont
 def generate_glyph(char, font, dim):
     img = Image.new('L', dim, color=255)
     img.char = char
+    # get draw handle
     dh = ImageDraw.Draw(img)
+    # draw glyph
     dh.text((0, 0), char, font=font, fill=0)
     return img
 
