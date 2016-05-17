@@ -14,16 +14,14 @@ class Model(object):
 
         self.model.compile(
             loss='categorical_crossentropy',
-            optimizer=SGD(lr=1, decay=1e-6,
-                          momentum=0.9,
-                          nesterov=True))
+            optimizer=SGD(lr=1, momentum=0.9, nesterov=True))
 
     def train(self, inputs, labels, epochs):
         self.model.fit(inputs,
                        labels,
                        batch_size=92,
                        nb_epoch=epochs,
-                       verbose=1)
+                       verbose=0)
 
     def predict(self, inputs):
         return self.model.predict_classes(inputs, verbose=0)
