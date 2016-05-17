@@ -1,8 +1,9 @@
 from input_font import glyphs
-from keras_model import ocr, font_data
+from input_image import image
+from keras_model import ocr, font_data, image_data
 
 
-def test_keras_ocr():
+def test_train():
     g = list(glyphs.default_glyphs())
     inputs, labels, chars = font_data.convert(g)
 
@@ -26,5 +27,25 @@ def test_keras_ocr():
             break
 
 
+def test_generate():
+    g = list(glyphs.default_glyphs())
+    inputs, labels, chars = font_data.convert(g)
+
+    m = ocr.Model(len(inputs[0]), len(labels[0]))
+
+    # train for 500 epochs
+    m.train(inputs, labels, 500)
+
+    imgs = list(image.read('input_image/test_image_w.png', 11, 23))
+    test_inputs = image_data.convert(imgs)
+
+    # predict class for test_inputs
+    p_classes = m.predict(test_inputs)
+
+    p_chars = font_data.deconvert(chars, p_classes)
+    for i in range(0, len(p_chars), 40):
+        print(''.join(p_chars[i:i + 40]))
+
+
 if __name__ == "__main__":
-    test_keras_ocr()
+    test_generate()
