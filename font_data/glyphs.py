@@ -11,13 +11,14 @@ def generate_glyph(char, font, dim):
     return img
 
 
-def generate_glyphs(charset, fontname, fontsize, dim):
+def glyphs(charset, fontname, fontsize, dim):
     font = ImageFont.truetype(fontname, fontsize)
-    return [generate_glyph(char, font, dim) for char in charset]
+    for char in charset:
+        yield generate_glyph(char, font, dim)
 
 
-def generate_default_glyphs():
-    return generate_glyphs(
+def default_glyphs():
+    return glyphs(
         charset=
         '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;?@[\\]^_`{|}~ ',
         fontname='fonts/DejaVuSansMono.ttf',

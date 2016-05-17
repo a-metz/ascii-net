@@ -3,7 +3,7 @@ from keras_model import keras_ocr, keras_data
 
 
 def test_keras_ocr():
-    g = glyphs.generate_default_glyphs()
+    g = list(glyphs.default_glyphs())
     inputs, labels, chars = keras_data.convert(g)
 
     m = keras_ocr.Model(len(inputs[0]), len(labels[0]))
