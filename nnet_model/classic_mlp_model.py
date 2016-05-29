@@ -14,6 +14,8 @@ class ClassicMLPModel(object):
                                            num_inputs=num_hidden)
         self.activ_output = nnet.SigmoidActivation()
 
+        self.error_func = nnet.sq_error
+
     def evaluate(self, input_):
         z_hidden = self.layer_hidden.feed_forward(input_)
         y_hidden = self.activ_hidden.feed_forward(z_hidden)
@@ -22,7 +24,8 @@ class ClassicMLPModel(object):
         return y_output
 
     def get_weight_errors(self, input_, expected_output):
-        y_error_output = nnet.sq_error(expected_output, self.evaluate(input_))
+        y_error_output = self.error_func(expected_output,
+                                         self.evaluate(input_))
 
         # back propagate output layer
         z_error_output = self.activ_output.back_propagate(y_error_output)
