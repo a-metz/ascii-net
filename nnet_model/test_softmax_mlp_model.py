@@ -26,14 +26,15 @@ def test_random_binary(runs=1):
         for n in range(10000):
             error = model_random_binary.train_batch(inputs,
                                                     expected_outputs,
-                                                    learning_rate=10)
+                                                    learning_rate=1)
             if n % 1000 == 0:
                 print('training error:', error)
 
         for input_, expected_output in zip(inputs, expected_outputs):
             output = model_random_binary.evaluate(input_)
             eval_errors += np.abs(expected_output - np.around(output))
-            print('eval input:', input_, 'expected output:', expected_output, 'output:', output)
+            print('eval input:', input_, 'expected output:', expected_output,
+                  'output:', output)
 
         print()
 
