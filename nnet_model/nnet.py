@@ -2,51 +2,68 @@ import numpy as np
 
 # single neuron:
 #
+# i = num inputs
 # x_i = inputs = outputs of last layer
 # w_i = weights
-# z = sum_i(x_i * w_i)
-# y = nonlin(z) = output of current layer
+# z = sum_i(w * x_i)
+# y = activation(z) = output of neuron
 
 
 class Layer(object):
-    # self.w weight vector
-    def __init__(self, num_neurons, num_inputs, weight_transform=lambda w: w):
+    # self.w weight matrix
+    def __init__(self, num_neurons, num_inputs):
         self.weight_factor = 1 / np.sqrt(num_inputs)
         # initialize random weight matrix
         self.w = (np.random.random((num_neurons, num_inputs)) -
                   0.5) * self.weight_factor
-        self.numpy_weight_transform = np.vectorize(weight_transform)
 
     # self.x input vector
     # self.y output vector
-    def feed_forward(self, input_, activation):
+    def feed_forward(self, input_):
         self.x = input_
-        # transform weights
-        w = self.numpy_weight_transform(self.w)
         # multiply weights with output of previous layer
-        z = np.dot(w, self.x)
-        # transform with nonlinar function
-        self.y = activation(z)
+        self.y = np.dot(self.w, self.x)
         return self.y
 
-    def back_propagate(self, output_error, activation_deriv):
-        # logit error = error derivative vector with regard to sum of weighted inputs z
-        delta = np.multiply(activation_deriv(self.y), output_error)
-        # transform weights
-        w = self.numpy_weight_transform(self.w)
+    def back_propagate(self, y_error):
         # input error derivative vector multiplied by weights
-        input_error = np.dot(delta, w)
+        x_error = np.dot(y_error, self.w)
         # weight error = error derivative with regard to weight matrix, for correction of weight matix
-        weight_error = np.multiply(np.matrix(delta).T, self.x)
-        return (input_error, weight_error)
+        w_corr = np.multiply(np.matrix(y_error).T, self.x)
+        return x_error, w_corr
 
-    def correct_weights(self, weight_error, learning_rate):
+    def correct_weights(self, w_corr, learning_rate):
         # correct weights by weight error and learning rate
-        self.w -= np.multiply(learning_rate * self.weight_factor, weight_error)
+        self.w -= np.multiply(learning_rate * self.weight_factor, w_corr)
+
+
+class BiasLayer(Layer):
+    def __init__(self, num_neurons, num_inputs):
+        # init with additional bias input
+        super().__init__(num_neurons, num_inputs + 1)
+
+    def feed_forward(self, input_):
+        # append bias to input vector
+        bias_input = np.append(input_, 1)
+        return super().feed_forward(bias_input)
+
+    def back_propagate(self, y_error):
+        x_error, weight_error = super().back_propagate(y_error)
+        # remove bias error from x_error vector
+        return x_error[:-1], weight_error
+
+
+class SigmoidActivation(object):
+    def feed_forward(self, input_):
+        self.y = logistic(input_)
+        return self.y
+
+    def back_propagate(self, y_error):
+        return np.multiply(logistic_deriv(self.y), y_error)
 
 
 # squared error cost gradient
-def error(t, y):
+def sq_error(t, y):
     return y - t
 
 
