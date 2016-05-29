@@ -3,7 +3,7 @@ import numpy as np
 import nnet
 
 
-class ClassicMLPModel(object):
+class ClassicMLP(object):
     def __init__(self, num_inputs, num_hidden, num_outputs):
         # initialize layers and activations
         self.layer_hidden = nnet.BiasLayer(num_neurons=num_hidden,
@@ -14,6 +14,7 @@ class ClassicMLPModel(object):
                                            num_inputs=num_hidden)
         self.activ_output = nnet.SigmoidActivation()
 
+        # set error function
         self.error_func = nnet.sq_error
 
     def evaluate(self, input_):
@@ -32,7 +33,7 @@ class ClassicMLPModel(object):
         x_error_output, wcorr_output = self.layer_output.back_propagate(
             z_error_output)
 
-        # backpropagate hidden layer
+        # back propagate hidden layer
         z_error_hidden = self.activ_hidden.back_propagate(x_error_output)
         x_error_hidden, wcorr_hidden = self.layer_hidden.back_propagate(
             z_error_hidden)
@@ -71,3 +72,18 @@ class ClassicMLPModel(object):
                                           learning_rate=learning_rate)
 
         return np.mean(np.abs(expected_output - self.evaluate(input_)))
+
+
+class SoftmaxMLP(ClassicMLP):
+    def __init__(self, num_inputs, num_hidden, num_outputs):
+        # initialize layers and activations
+        self.layer_hidden = nnet.BiasLayer(num_neurons=num_hidden,
+                                           num_inputs=num_inputs)
+        self.activ_hidden = nnet.SigmoidActivation()
+
+        self.layer_output = nnet.BiasLayer(num_neurons=num_outputs,
+                                           num_inputs=num_hidden)
+        self.activ_output = nnet.SoftmaxActivation()
+
+        # set error function
+        self.error_func = nnet.ce_softmax_error

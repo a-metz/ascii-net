@@ -1,6 +1,6 @@
 import numpy as np
 
-import softmax_mlp_model
+from mlp import SoftmaxMLP
 
 
 def test_random_binary(runs=1):
@@ -21,7 +21,7 @@ def test_random_binary(runs=1):
         print('expected_outputs:')
         print(expected_outputs)
 
-        model_random_binary = softmax_mlp_model.SoftmaxMLPModel(2, 4, 4)
+        model_random_binary = SoftmaxMLP(2, 4, 4)
 
         for n in range(10000):
             error = model_random_binary.train_batch(inputs,

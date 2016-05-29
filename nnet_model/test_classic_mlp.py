@@ -1,6 +1,6 @@
 import numpy as np
 
-import classic_mlp_model
+from mlp import ClassicMLP
 
 
 def test_xor(runs=1):
@@ -13,7 +13,7 @@ def test_xor(runs=1):
 
         expected_outputs = np.asarray([[0], [1], [1], [0]])
 
-        model_xor = classic_mlp_model.ClassicMLPModel(2, 2, 1)
+        model_xor = ClassicMLP(2, 2, 1)
 
         for n in range(1000):
             error = model_xor.train_batch(inputs,
@@ -25,7 +25,8 @@ def test_xor(runs=1):
         for input_, expected_output in zip(inputs, expected_outputs):
             output = model_xor.evaluate(input_)
             eval_errors += np.abs(expected_output - np.around(output))
-            print('eval input:', input_, 'expected output:', expected_output, 'output:', output)
+            print('eval input:', input_, 'expected output:', expected_output,
+                  'output:', output)
 
         print()
 
@@ -52,7 +53,7 @@ def test_random_binary(runs=1):
         print('expected_outputs:')
         print(expected_outputs)
 
-        model_random_binary = classic_mlp_model.ClassicMLPModel(3, 6, 2)
+        model_random_binary = ClassicMLP(3, 6, 2)
 
         for n in range(1000):
             error = model_random_binary.train_batch(inputs,
@@ -64,7 +65,8 @@ def test_random_binary(runs=1):
         for input_, expected_output in zip(inputs, expected_outputs):
             output = model_random_binary.evaluate(input_)
             eval_errors += np.abs(expected_output - np.around(output))
-            print('eval input:', input_, 'expected output:', expected_output, 'output:', output)
+            print('eval input:', input_, 'expected output:', expected_output,
+                  'output:', output)
 
         print()
 
