@@ -26,7 +26,7 @@ class Layer(object):
         return self.y
 
     def back_propagate(self, y_error):
-        # input error derivative vector multiplied by weights
+        # derivative of output error derivative vector multiplied by weights
         x_error = np.dot(y_error, self.w)
         # weight error = error derivative with regard to weight matrix, for correction of weight matix
         w_corr = np.multiply(np.matrix(y_error).T, self.x)
@@ -62,7 +62,17 @@ class SigmoidActivation(object):
         return np.multiply(logistic_deriv(self.y), y_error)
 
 
-# squared error cost gradient
+class SoftmaxActivation(object):
+    def feed_forward(self, input_):
+        self.y = softmax(input_)
+        return self.y
+
+    def back_propagate(self, y_error):
+        # when using ce_softmax_error error function this step is unnecessary
+        return y_error
+
+
+# squared error
 def sq_error(t, y):
     return y - t
 
@@ -77,11 +87,12 @@ def logistic_deriv(y):
     return np.multiply(y, 1 - y)
 
 
+# softmax derivative of cross entropy error
+def ce_softmax_error(t, y):
+    # cross entropy error: -np.sum(np.multiply(y, np.log(y)))
+    return y - t
+
+
 # softmax activation
 def softmax(z):
     return np.exp(z) / np.sum(np.exp(z))
-
-
-# cross entropy softmax derivative
-def ce_softmax_deriv(y):
-    return 1
