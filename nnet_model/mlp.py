@@ -1,6 +1,6 @@
 import numpy as np
 
-import nnet
+from nnet_model import nnet
 
 
 class ClassicMLP(object):
