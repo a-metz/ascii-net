@@ -14,8 +14,8 @@ class Layer(object):
     def __init__(self, num_neurons, num_inputs):
         self.weight_factor = 1 / np.sqrt(num_inputs)
         # initialize random weight matrix
-        self.w = (np.random.random((num_neurons, num_inputs)) -
-                  0.5) * self.weight_factor
+        self.w = (np.random.random((num_neurons, num_inputs)).astype('float64')
+                  - 0.5) * self.weight_factor
 
     # self.x input vector
     # self.y output vector
