@@ -4,7 +4,7 @@ from keras.layers.core import Activation, Dense
 from keras.optimizers import SGD
 
 
-class Model(object):
+class OcrModel(object):
     def __init__(self, num_pixels, num_classes):
         self.model = Sequential()
         self.model.add(Dense(output_dim=num_pixels, input_dim=num_pixels))

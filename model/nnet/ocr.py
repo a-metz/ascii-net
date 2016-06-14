@@ -1,9 +1,9 @@
 import numpy as np
 
-from nnet_model.mlp import SoftmaxMLP
+from .mlp import SoftmaxMLP
 
 
-class Model(object):
+class OcrModel(object):
     def __init__(self, num_pixels, num_classes):
         self.model = SoftmaxMLP(num_inputs=num_pixels,
                                 num_hidden=num_pixels,
@@ -21,7 +21,5 @@ class Model(object):
             np.apply_along_axis(self.model.evaluate,
                                 axis=1, arr=inputs),
             axis=1)
-        #import pdb
-        #pdb.set_trace()
 
         return res

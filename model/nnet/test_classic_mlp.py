@@ -1,6 +1,6 @@
 import numpy as np
 
-from mlp import ClassicMLP
+from .mlp import ClassicMLP
 
 
 def test_xor(runs=1):

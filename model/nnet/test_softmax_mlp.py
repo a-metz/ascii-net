@@ -1,6 +1,6 @@
 import numpy as np
 
-from mlp import SoftmaxMLP
+from .mlp import SoftmaxMLP
 
 
 def test_random_binary(runs=1):

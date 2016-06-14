@@ -1,21 +1,21 @@
 import numpy as np
 
-from nnet_model import nnet
+from . import base
 
 
 class ClassicMLP(object):
     def __init__(self, num_inputs, num_hidden, num_outputs):
         # initialize layers and activations
-        self.layer_hidden = nnet.BiasLayer(num_neurons=num_hidden,
+        self.layer_hidden = base.BiasLayer(num_neurons=num_hidden,
                                            num_inputs=num_inputs)
-        self.activ_hidden = nnet.SigmoidActivation()
+        self.activ_hidden = base.SigmoidActivation()
 
-        self.layer_output = nnet.BiasLayer(num_neurons=num_outputs,
+        self.layer_output = base.BiasLayer(num_neurons=num_outputs,
                                            num_inputs=num_hidden)
-        self.activ_output = nnet.SigmoidActivation()
+        self.activ_output = base.SigmoidActivation()
 
         # set error function
-        self.error_func = nnet.sq_error
+        self.error_func = base.sq_error
 
     def evaluate(self, input_):
         z_hidden = self.layer_hidden.feed_forward(input_)
@@ -77,13 +77,13 @@ class ClassicMLP(object):
 class SoftmaxMLP(ClassicMLP):
     def __init__(self, num_inputs, num_hidden, num_outputs):
         # initialize layers and activations
-        self.layer_hidden = nnet.BiasLayer(num_neurons=num_hidden,
+        self.layer_hidden = base.BiasLayer(num_neurons=num_hidden,
                                            num_inputs=num_inputs)
-        self.activ_hidden = nnet.SigmoidActivation()
+        self.activ_hidden = base.SigmoidActivation()
 
-        self.layer_output = nnet.BiasLayer(num_neurons=num_outputs,
+        self.layer_output = base.BiasLayer(num_neurons=num_outputs,
                                            num_inputs=num_hidden)
-        self.activ_output = nnet.SoftmaxActivation()
+        self.activ_output = base.SoftmaxActivation()
 
         # set error function
-        self.error_func = nnet.ce_softmax_error
+        self.error_func = base.ce_softmax_error
