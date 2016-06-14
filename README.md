@@ -17,7 +17,7 @@ or
 
 **Source:**
 
-![source image](/input_image/test_image_w.png?raw=true)
+![source image](/test/test_image_w.png?raw=true)
 
 **Generated:**
 
