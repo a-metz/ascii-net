@@ -52,13 +52,13 @@ def generate(backend, epochs):
 
 
 def test_generate_nnet():
-    generate('nnet', 1)
+    generate('nnet', 100)
 
 
 def test_generate_keras():
-    generate('keras', 1)
+    generate('keras', 100)
 
 
 if __name__ == "__main__":
-    generate('nnet', 2000)
-    generate('keras', 2000)
+    generate('nnet', 1000)
+    generate('keras', 1000)
