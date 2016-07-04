@@ -1,7 +1,7 @@
 import pytest
 
 from font import glyphs, font_data
-from input.image import tiles, image_data
+from image import tiles, image_data
 
 
 def train(model, inputs, labels, chars, epochs, e_output=100):

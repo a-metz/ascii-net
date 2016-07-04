@@ -2,6 +2,7 @@ import numpy as np
 from PIL import Image
 
 
+# read PIL image tiles from image files
 def read(filename, sample_width, sample_height):
     x_off = 0
     y_off = 0
