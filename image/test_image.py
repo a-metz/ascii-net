@@ -8,10 +8,10 @@ def test_read():
 
     # test image has dimension 720x630
     # check number of image tiles
-    assert (len(img_tiles) == (720 / 8) * (630 / 18))
+    assert len(img_tiles) == (720 / 8) * (630 / 18)
 
     data = image_data.convert(img_tiles)
 
     # check size of data numpy array
-    assert (np.size(data, axis=0) == (720 / 8) * (630 / 18))
-    assert (np.size(data, axis=1) == 8 * 18)
+    assert np.size(data, axis=0) == (720 / 8) * (630 / 18)
+    assert np.size(data, axis=1) == 8 * 18
