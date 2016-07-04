@@ -6,7 +6,7 @@ from image import tiles, image_data
 
 def train(model, inputs, labels, chars, epochs, e_output=100):
     for i in range(0, epochs, e_output):
-        model.train(inputs, labels, e_output)
+        train_loss = model.train(inputs, labels, e_output)
 
         # predict class for all training data
         p_classes = model.predict(inputs)
@@ -15,11 +15,9 @@ def train(model, inputs, labels, chars, epochs, e_output=100):
         p_chars = font_data.deconvert(chars, p_classes)
         p_errors = [c for c, pc in zip(chars, p_chars) if c != pc]
 
-        print()
-        print('epoch: %i' % (i + e_output))
-        print('predict: %s' % ''.join(p_chars))
-        print('errors: %s' % ''.join(p_errors))
-
+        print('epoch: %i, loss: %f' % (i + e_output, train_loss))
+        #print('predict: %s' % ''.join(p_chars))
+        #print('errors: %s' % ''.join(p_errors))
         #if len(p_errors) == 0:
         #    break
 
@@ -32,17 +30,23 @@ def generate(backend, epochs):
     else:
         raise NotImplementedError
 
+    print('generate with %s model in %d epochs' % (backend, epochs))
+
+    print('load data')
     g = list(glyphs.default_glyphs())
     inputs, labels, chars = font_data.convert(g)
 
     t = list(tiles.read('test/test_image_w.png', 9, 18))
     test_inputs = image_data.convert(t)
 
+    print('load model')
     model = OcrModel(len(inputs[0]), len(labels[0]))
 
+    print('start training')
     # train for x epochs
     train(model, inputs, labels, chars, epochs)
 
+    print('predict')
     # predict class for test_inputs
     p_classes = model.predict(test_inputs)
 

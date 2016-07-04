@@ -17,11 +17,13 @@ class OcrModel(object):
             optimizer=SGD(lr=1, momentum=0.9, nesterov=True))
 
     def train(self, inputs, labels, epochs):
-        self.model.fit(inputs,
-                       labels,
-                       batch_size=92,
-                       nb_epoch=epochs,
-                       verbose=0)
+        history = self.model.fit(inputs,
+                                 labels,
+                                 batch_size=92,
+                                 nb_epoch=epochs,
+                                 verbose=0)
+        # return loss of last epoch
+        return history.history['loss'][-1]
 
     def predict(self, inputs):
         return self.model.predict_classes(inputs, verbose=0)
