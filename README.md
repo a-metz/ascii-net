@@ -12,7 +12,7 @@ Currently only a hard-coded test image is converted:
 
 **Source:**
 
-![source image](/input_image/test_image_w.png?raw=true)
+![source image](/test/test_image_w.png?raw=true)
 
 **Generated:**
 
