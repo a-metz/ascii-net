@@ -31,17 +31,15 @@ The model is a simple 2 layer neural network:
 
 It is trained with rendered glyphs of a font and corresponding labels as inputs:
 
-![a](/docs/glyph_a.png?raw=true) --> a
-![b](/docs/glyph_b.png?raw=true) --> b
-![#](/docs/glyph_hash.png?raw=true) --> #
+![a](/docs/glyph_a.png?raw=true) | ![b](/docs/glyph_b.png?raw=true) | ![#](/docs/glyph_hash.png?raw=true)
+---------------------------------|----------------------------------|------------------------------------
+a                                | b                                | c
 
 And uses those to predict the best label for the tiles in an input image:
 
-![_](/docs/tile_00_underline.png?raw=true) --> \_
-![,](/docs/tile_01_comma.png?raw=true) --> ,
-![#](/docs/tile_02_hash.png?raw=true) --> #
-![*](/docs/tile_03_star.png?raw=true) --> \*
-![7](/docs/tile_04_7.png?raw=true) --> 7
+![_](/docs/tile_00_underline.png?raw=true) | ![,](/docs/tile_01_comma.png?raw=true) | ![#](/docs/tile_02_hash.png?raw=true) | ![*](/docs/tile_03_star.png?raw=true) | ![7](/docs/tile_04_7.png?raw=true)
+---|---|---|---|---
+\_ |,  |#  |\* |7
 
 Two implementations of the model were made:
 
