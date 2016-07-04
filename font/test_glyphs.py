@@ -1,4 +1,4 @@
-import glyphs
+from . import glyphs
 
 
 def test_glyphs():
@@ -8,6 +8,7 @@ def test_glyphs():
         fontname='fonts/DejaVuSansMono.ttf',
         fontsize=18,
         dim=(11, 23)))
+
     assert (len(g) == 92)
     assert (g[0].height == 23)
     assert (g[0].width == 11)

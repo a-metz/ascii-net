@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 
 
+# render a glyph to a PIL image
 def generate_glyph(char, font, dim):
     img = Image.new('L', dim, color=255)
     img.char = char
@@ -11,6 +12,7 @@ def generate_glyph(char, font, dim):
     return img
 
 
+# render all glyphs in charset
 def glyphs(charset, fontname, fontsize, dim):
     font = ImageFont.truetype(fontname, fontsize)
     for char in charset:
