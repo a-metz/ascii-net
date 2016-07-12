@@ -29,13 +29,13 @@ The model is a simple 2 layer neural network:
 * fully connected output layer with 92 nodes (number of different characters used) with bias and softmax activation
 * cross entrophy loss function
 
-It is trained with rendered glyphs of a font and corresponding labels as inputs:
+It is trained with rendered glyphs of a font and corresponding labels as inputs, e.g.:
 
 ![a](/docs/glyph_a.png?raw=true) | ![b](/docs/glyph_b.png?raw=true) | ![#](/docs/glyph_hash.png?raw=true)
 ---------------------------------|----------------------------------|------------------------------------
-a                                | b                                | c
+a                                | b                                | #
 
-And uses those to predict the best label for the tiles in an input image:
+And uses those to predict the best label for the tiles in an input image, e.g.:
 
 ![_](/docs/tile_00_underline.png?raw=true) | ![,](/docs/tile_01_comma.png?raw=true) | ![#](/docs/tile_02_hash.png?raw=true) | ![*](/docs/tile_03_star.png?raw=true) | ![7](/docs/tile_04_7.png?raw=true)
 ---|---|---|---|---
