@@ -5,5 +5,5 @@ def draw(iterable2d):
             if col >= 0.5:
                 out += '#'
             else:
-                out += ' '
+                out += '.'
         print(out)
