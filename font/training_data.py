@@ -13,12 +13,13 @@ def get_sample_generator(charset, font, dim, offset, transform=lambda x: x, loop
     for index, char in enumerate(charset):
         # numpy array of rendered glyph
         glyph = render.convert_to_array(render.render_glyph_image(char, font, dim, offset))
-        # class label as one-got vector
-        label = np.zeros(len(charset))[index] = 1
+        # class label as one-hot vector
+        label = np.zeros(len(charset))
+        label[index] = 1
         # add dataset to sample list
         samples.append((label, glyph))
         # add label to char mapping
-        chars[label] = char
+        chars[index] = char
 
     # generate glyph for training
     def gen():
@@ -27,11 +28,16 @@ def get_sample_generator(charset, font, dim, offset, transform=lambda x: x, loop
 
     # get char from label
     def char(label):
-        return char[label]
+        index = np.nonzero(label)[0][0]
+        return chars[index]
 
-    return gen, char
+    # get char from label
+    def index(index):
+        return chars[index]
+
+    return gen, char, index
 
 
-def batch_generator(gen, batch_size):
+def batch(gen, batch_size):
     for _, out in zip(range(batch_size), gen()):
         yield out
