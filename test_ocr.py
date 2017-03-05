@@ -16,13 +16,13 @@ def generate_training_data(batch_size):
             offset=param.DEFAULT_OFFSET)
 
     batch = list(training_data.batch(gen, batch_size))
-    inputs_len = len(batch[0][1].flatten())
-    inputs = np.zeros((batch_size, inputs_len))
-    labels_len = len(batch[0][0])
-    labels = np.zeros((batch_size, labels_len))
+    inputs_dim = (batch_size, ) + batch[0][1].shape
+    inputs = np.zeros(inputs_dim)
+    labels_dim = (batch_size, len(batch[0][0]))
+    labels = np.zeros(labels_dim)
 
     for index, tple in enumerate(batch):
-        inputs[index, :] = tple[1].flatten()
+        inputs[index, :, :] = tple[1]
         labels[index, :] = tple[0]
     
     chars = [get_char(tple[0]) for tple in batch]
@@ -45,7 +45,7 @@ def generate(backend, batch_size, epochs):
 
     print('load model')
     inputs, labels, _, _, _ = generate_training_data(1)
-    model = OcrModel(len(inputs[0]), len(labels[0]))
+    model = OcrModel(inputs[0].shape, len(labels[0]))
 
     print('start training')
     

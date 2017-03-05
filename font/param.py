@@ -8,7 +8,7 @@ DEFAULT_FONT = 'DejaVuSansMono.ttf'
 # DEFAULT_DIM = (15, 23)
 # DEFAULT_OFFSET = (2, 0)
 DEFAULT_SIZE = 15
-DEFAULT_DIM = (9, 18)
+DEFAULT_DIM = (18, 9)
 DEFAULT_OFFSET = (0, 0)
 
 # transform
