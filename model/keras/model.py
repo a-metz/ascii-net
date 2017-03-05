@@ -19,7 +19,7 @@ class OcrModel(object):
     def train(self, inputs, labels, epochs=1):
         history = self.model.fit(inputs,
                                  labels,
-                                 batch_size=92,
+                                 batch_size=100,
                                  nb_epoch=epochs,
                                  verbose=0)
         # return loss of last epoch
