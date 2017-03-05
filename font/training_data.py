@@ -31,7 +31,7 @@ def get_sample_generator(charset, font, dim, offset, transform=lambda x: x, loop
         index = np.nonzero(label)[0][0]
         return chars[index]
 
-    # get char from label
+    # get char from index
     def index(index):
         return chars[index]
 

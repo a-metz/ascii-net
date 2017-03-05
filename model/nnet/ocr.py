@@ -9,7 +9,7 @@ class OcrModel(object):
                                 num_hidden=num_pixels,
                                 num_outputs=num_classes)
 
-    def train(self, inputs, labels, epochs):
+    def train(self, inputs, labels, epochs=1):
         for i in range(epochs):
             train_error = self.model.train_batch(
                 inputs, labels, learning_rate=0.5)
