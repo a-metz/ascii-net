@@ -16,7 +16,7 @@ kernel_size = (3, 3)
 
 class OcrModel(object):
     def __init__(self, shape_pixels, num_classes):
-        self.input_shape = (1, ) + shape_pixels
+        self.input_shape = shape_pixels + (1, )
 
         self.model = Sequential()
         self.model.add(Convolution2D(nb_filters,
