@@ -8,12 +8,13 @@ from image import tiles, image_data
 # generate one batch of training data
 def generate_training_data(batch_size):
     fnt = render.load_font(fontname=param.DEFAULT_FONT, fontsize=param.DEFAULT_SIZE)
-    #trn = transform.random_affine(param.DEFAULT_TRANSPOSE_SCALE, param.DEFAULT_AFFINE_SCALE)
-    #gen, get_char, get_index = training_data.get_sample_generator(charset=param.PRINTABLE_ASCII, font=fnt, dim=param.DEFAULT_DIM,
-    #        offset=param.DEFAULT_OFFSET, transform=trn)
+    
+    # disable transform until it actually build a model where it helps the results
+    # trn = transform.random_affine(param.DEFAULT_TRANSPOSE_SCALE, param.DEFAULT_AFFINE_SCALE)
+    trn = lambda x: x
 
     gen, get_char, get_index = training_data.get_sample_generator(charset=param.PRINTABLE_ASCII, font=fnt, dim=param.DEFAULT_DIM,
-            offset=param.DEFAULT_OFFSET)
+            offset=param.DEFAULT_OFFSET, transform=trn)
 
     batch = list(training_data.batch(gen, batch_size))
     inputs_dim = (batch_size, ) + batch[0][1].shape
