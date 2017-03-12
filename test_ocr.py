@@ -33,6 +33,8 @@ def generate_training_data(batch_size):
 def generate(backend, batch_size, epochs):
     if backend == 'keras_mlp':
         from model.keras_mlp import OcrModel
+    elif backend == 'keras_cnn':
+        from model.keras_cnn import OcrModel
     elif backend == 'nnet':
         from model.nnet import OcrModel
     else:
@@ -70,15 +72,20 @@ def generate(backend, batch_size, epochs):
             print(''.join(p_chars[i:i + 80]))
 
 
+CHARSET_SIZE = len(param.PRINTABLE_ASCII)
+
+
 def test_generate_nnet():
-    generate('nnet', 100, 1)
+    generate('nnet', batch_size=CHARSET_SIZE, epochs=1)
 
 
 def test_generate_keras_mlp():
-    generate('keras_mlp', 100, 1)
+    generate('keras_mlp', batch_size=CHARSET_SIZE, epochs=1)
+
+
+def test_generate_keras_cnn():
+    generate('keras_cnn', batch_size=CHARSET_SIZE, epochs=1)
 
 
 if __name__ == "__main__":
-    #generate('nnet', 1000)
-    charset_size = len(param.PRINTABLE_ASCII)
-    generate('keras_mlp', batch_size=charset_size * 100, epochs=10000)
+    generate('keras_mlp', batch_size=CHARSET_SIZE * 100, epochs=10000)
