@@ -5,11 +5,9 @@ import numpy as np
 def convert(images):
 
     num_datasets = len(images)
-    num_pixels = images[0].width * images[0].height
 
-    data = np.zeros((num_datasets, num_pixels))
+    data = np.zeros((num_datasets, images[0].height, images[0].width))
 
     for index, sample in enumerate(images):
-        data[index, :] = np.asarray(sample, dtype='float32').flatten() / 255
-
+        data[index, :, :] = np.asarray(sample, dtype='float32') / 255 - 0.5
     return data

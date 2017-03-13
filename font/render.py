@@ -13,7 +13,7 @@ def render_glyph_image(char, font, dim, offset=(0, 0)):
 
 
 def convert_to_array(image):
-    return np.asarray(image, dtype='float32') / 255
+    return np.asarray(image, dtype='float32') / 255 - 0.5
 
 
 def load_font(fontname, fontsize):
