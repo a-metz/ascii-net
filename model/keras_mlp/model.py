@@ -10,7 +10,7 @@ class OcrModel(object):
         self.num_pixels = shape_pixels[0] * shape_pixels[1]
 
         self.model = Sequential()
-        self.model.add(Dense(output_dim=self.num_pixels, input_dim=self.num_pixels))
+        self.model.add(Dense(output_dim=self.num_pixels * 2, input_dim=self.num_pixels))
         self.model.add(Activation('sigmoid'))
         self.model.add(Dense(output_dim=num_classes))
         self.model.add(Activation('softmax'))
@@ -25,7 +25,7 @@ class OcrModel(object):
     def train(self, inputs, labels, epochs=1):
         history = self.model.fit(self.flatten_pixels(inputs),
                                  labels,
-                                 batch_size=100,
+                                 batch_size=inputs.shape[0],
                                  nb_epoch=epochs,
                                  verbose=0)
         # return loss of last epoch

@@ -18,7 +18,7 @@ class OcrModel(object):
     def train(self, inputs, labels, epochs=1):
         for i in range(epochs):
             train_error = self.model.train_batch(
-                self.flatten_pixels(inputs), labels, learning_rate=0.5)
+                self.flatten_pixels(inputs), labels, learning_rate=0.2)
         return train_error
 
     def predict(self, inputs):

@@ -45,6 +45,8 @@ def generate(backend, batch_size, epochs):
 
     t = list(tiles.read('test/test_image_w_inv.png', 9, 18))
     test_inputs = image_data.convert(t)
+    # shift mean
+    test_inputs = test_inputs - 0.4
 
     print('load model')
     inputs, labels, _, _, _ = generate_training_data(1)
@@ -56,6 +58,8 @@ def generate(backend, batch_size, epochs):
         # generate batch of training data
         inputs, labels, _, _, get_index = generate_training_data(batch_size)
         
+        # shift mean
+        inputs = inputs - 0.4
         # train
         train_loss = model.train(inputs, labels)
 
@@ -89,4 +93,4 @@ def test_generate_keras_cnn():
 
 
 if __name__ == "__main__":
-    generate('keras_mlp', batch_size=CHARSET_SIZE * 100, epochs=10000)
+    generate('keras_mlp', batch_size=CHARSET_SIZE, epochs=200)
